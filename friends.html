@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AniVerse - Friends</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+    // Tailwind dark mode via class
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+  .dropdown-menu {
+    transition: all 0.2s ease;
+  }
+</style>
+
+  <style>
+@keyframes spin-fast {
+  0%   { transform: rotate(0deg);   }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 0.6s linear infinite;
+}
+
+#loader.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#loader.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+  
+  <style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+.animate-fadeOut {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+</style>
+
+</style>
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+</style>
+
+</head>
+<body class="bg-white dark:bg-black text-black dark:text-white font-sans transition-colors duration-300">
+
+  
+  <!-- 🔄 Centered Loading Spinner -->
+<div id="loading" class="fixed inset-0 flex items-center justify-center bg-black z-50">
+  <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+</div>
+
+
+
+
+  <!-- Navbar -->
+<header class="bg-white/80 dark:bg-black/80 backdrop-blur sticky top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+
+    <!-- Left: Logo -->
+    <div class="text-xl font-bold text-red-600 shrink-0">AniVerse</div>
+
+   
+    <!-- Right: Dark toggle + Profile -->
+    <div class="flex items-center gap-4 shrink-0">
+      <!-- Dark Mode Toggle -->
+      <button onclick="toggleDarkMode()" class="text-xl">🌙</button>
+
+      <!-- Profile Dropdown -->
+      <div class="relative group">
+        <button class="flex items-center gap-2">
+          <img id="nav-avatar" src="../images/user.jpg" class="w-8 h-8 rounded-full object-cover border-2 border-white" alt="User" />
+        </button>
+        <div class="absolute right-0 mt-2 bg-white dark:bg-gray-900 rounded shadow-lg p-2 text-sm hidden group-hover:block z-50">
+          <a href="../profile.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Profile</a>
+          <a href="friends.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Friends</a>
+          <a href="../index.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Home</a>
+          <a href="#" id="auth-btn" class="block px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Logout</a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</header>
+
+<!-- Friends & Requests Container -->
+<div class="p-4 max-w-xl mx-auto">
+  <!-- Tabs -->
+  <div class="flex justify-center gap-4 mb-4 text-sm font-medium">
+    <button id="tab-friends" class="px-4 py-1 rounded bg-red-500 text-white shadow transition-all">Friends</button>
+    <button id="tab-requests" class="relative px-4 py-1 rounded bg-gray-200 dark:bg-gray-700 text-black dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-all">
+  Requests
+  <span id="request-count-indicator" class="hidden absolute -top-1 -right-2 bg-red-600 text-white text-[10px] min-w-[18px] h-[18px] flex items-center justify-center rounded-full font-bold leading-none px-1 shadow-lg"></span>
+</button>
+</div>
+
+  <!-- Friends List -->
+  <div id="friends-container" class=""></div>
+
+  <!-- Friend Requests List -->
+  <div id="requests-container" class="hidden"></div>
+
+  <!-- Floating Add Friend Button -->
+<button id="open-modal-btn" class="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 transition-all z-50">
+  ➕ Add Friend
+</button>
+
+<!-- 💬 Message Modal -->
+<div id="message-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-white dark:bg-gray-900 rounded-lg p-5 w-[90%] max-w-md relative transform scale-95 opacity-0 transition duration-300">
+    <button id="close-message-modal" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-xl">&times;</button>
+    <h3 class="text-lg font-bold mb-3">💬 Chat with <span id="message-recipient" class="text-red-500"></span></h3>
+
+    <div id="chat-box" class="bg-gray-100 dark:bg-gray-800 rounded p-3 h-60 overflow-y-auto text-sm space-y-2 mb-3"></div>
+
+    <div class="flex gap-2">
+      <input id="message-input" type="text" placeholder="Type a message..." class="w-full px-3 py-2 rounded bg-white dark:bg-gray-700 focus:outline-none text-sm">
+      <button id="send-message-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- 👥 Add Friend Modal -->
+<div id="friend-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-white dark:bg-gray-900 rounded-lg p-5 w-[90%] max-w-md relative transform scale-95 opacity-0 transition duration-300">
+    <button id="close-modal-btn" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-xl">&times;</button>
+    <h3 class="text-lg font-bold mb-4">➕ Add a Friend</h3>
+
+    <input id="search-username" type="text"
+      placeholder="Enter username"
+      class="w-full px-4 py-2 mb-4 rounded bg-white dark:bg-gray-700 text-black dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+
+    <div id="search-results" class="space-y-2 max-h-60 overflow-y-auto">
+      <!-- Results will be inserted here -->
+    </div>
+  </div>
+</div>
+
+  
+  <div class="bg-white dark:bg-gray-900 rounded-lg p-5 w-[90%] max-w-md relative transform scale-95 opacity-0 transition duration-300">
+  <button id="close-message-modal" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-xl">&times;</button>
+  <h3 class="text-lg font-bold mb-3">💬 Chat with <span id="message-recipient" class="text-red-500"></span></h3>
+
+  <div id="chat-box" class="bg-gray-100 dark:bg-gray-800 rounded p-3 h-60 overflow-y-auto text-sm space-y-2 mb-3"></div>
+
+  <div class="flex gap-2">
+    <input id="message-input" type="text" placeholder="Type a message..." class="w-full px-3 py-2 rounded bg-white dark:bg-gray-700 focus:outline-none text-sm">
+    <button id="send-message-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">Send</button>
+  </div>
+</div>
+
+
+ 
+
+  <!-- DARK MODE TOGGLER -->
+  <script>
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+    }
+  </script>
+<script type="module" src="FireBaseFriends.js"></script>
+ 
+</body>
+        </html>
+        
