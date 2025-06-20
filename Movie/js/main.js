@@ -17,7 +17,9 @@
    $(window).on('load', function () {
     // Do NOT fade out loader here! Keep it visible
     // Remove or comment out fadeOut calls here
-
+   $(".loader").fadeOut();
+        $("#preloder").delay(200).fadeOut("slow");
+	   
 
         /*------------------
             FIlter
