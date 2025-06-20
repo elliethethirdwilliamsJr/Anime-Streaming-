@@ -15,12 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch(apiURL)
     .then(res => res.json())
     .then(data => {
-      const link = data?.results?.streamingLink?.link?.file;
+      const originalLink = data?.results?.streamingLink?.link?.file;
+      const link = `https://m3u8-proxy-cors-azure-two.vercel.app/cors?url=${encodeURIComponent(originalLink)}`;
       const tracks = data?.results?.streamingLink?.tracks || [];
 
-      if (!link) {
+      if (!originalLink) {
         alert("⚠️ Video source not found.");
-        loader.style.display = "none"; // Hide loader on error
+        loader.style.display = "none";
         return;
       }
 
@@ -29,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Function to hide loader and play video after setup
       const onVideoReady = () => {
-        loader.style.display = "none"; // Hide loader
-        video.play().catch(() => {}); // Play video, catch to avoid uncaught promise error
+        loader.style.display = "none";
+        video.play().catch(() => {});
       };
 
       if (Hls.isSupported()) {
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         video.appendChild(trackEl);
       });
 
-      // Setup Plyr after video source set (after a small delay to ensure video element is ready)
+      // Setup Plyr after video source set
       setTimeout(() => {
         new Plyr(video, {
           captions: { active: true, update: true, language: "en" },
@@ -73,6 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .catch(err => {
       console.error("Stream fetch error:", err);
       alert("Failed to load episode. Please try again later.");
-      loader.style.display = "none"; // Hide loader on error
+      loader.style.display = "none";
     });
 });
