@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Movie Site - Login/Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="Firebase Auth/register.js"></script>
+  <script type="module" src="Firebase Auth/login.js"></script>
+  <style>
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/background.jpg') no-repeat center center;
+      background-size: cover;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .fade {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-enter {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    .fade-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .fade-leave {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+
+    input, button {
+      touch-action: manipulation;
+    }
+  </style>
+  
+  <!-- SPINNER -->
+    <style>
+@keyframes spin-fast {
+  0%   { transform: rotate(0deg);   }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-fast {
+  animation: spin-fast 0.6s linear infinite;
+}
+
+#loader.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#loader.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+</style>
+
+</head>
+
+ 
+</head>
+<body class="flex items-center justify-center min-h-screen px-4 text-white bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e]">
+
+  <div id="loader" class="fixed inset-0 z-50 flex justify-center items-center bg-black/20 backdrop-blur-sm hidden">
+  <div class="animate-spin-fast rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+</div>
+
+
+  <!-- Blurred Background -->
+  <div class="background"></div>
+
+  <!-- Form Container -->
+  <div id="form-container" class="w-full max-w-sm p-6 rounded-2xl shadow-2xl bg-black bg-opacity-60 backdrop-blur-md fade fade-active">
+    <h2 id="form-title" class="text-3xl font-bold text-center mb-6">Login</h2>
+
+    <!-- LOGIN FORM -->
+    <form id="login-form" class="space-y-4">
+      <input type="email" placeholder="Email" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none" required>
+      <input type="password" placeholder="Password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none" required>
+      <button type="submit" class="w-full bg-red-600 hover:bg-red-700 p-3 rounded font-bold">Login</button>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="register-form" class="space-y-4 hidden">
+      <input type="text" placeholder="Username" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none" required>
+      <input type="email" placeholder="Email" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none" required>
+      <input type="password" placeholder="Password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none" required>
+      <input type="password" placeholder="Confirm Password" class="w-full p-3 rounded bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none" required>
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 p-3 rounded font-bold">Register</button>
+    </form>
+
+    <!-- TOGGLE LINK -->
+    <p class="mt-6 text-center text-white">
+      <span id="toggle-text">Don't have an account?</span>
+      <button onclick="toggleForm()" class="text-red-400 hover:underline ml-1" id="toggle-btn">Register</button>
+    </p>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const formTitle = document.getElementById('form-title');
+    const toggleBtn = document.getElementById('toggle-btn');
+    const toggleText = document.getElementById('toggle-text');
+    const container = document.getElementById('form-container');
+
+    function toggleForm() {
+      container.classList.remove('fade-active');
+      container.classList.add('fade-leave');
+
+      setTimeout(() => {
+        const isLogin = loginForm.classList.contains('hidden');
+        loginForm.classList.toggle('hidden');
+        registerForm.classList.toggle('hidden');
+        formTitle.textContent = isLogin ? 'Login' : 'Register';
+        toggleText.textContent = isLogin ? "Don't have an account?" : "Already have an account?";
+        toggleBtn.textContent = isLogin ? "Register" : "Login";
+
+        container.classList.remove('fade-leave');
+        container.classList.add('fade-enter');
+
+        setTimeout(() => {
+          container.classList.remove('fade-enter');
+          container.classList.add('fade-active');
+        }, 50);
+      }, 300);
+    }
+  </script>
+  
+  <!-- Show/hide-->
+  <script>
+function togglePasswordVisibility(btn, inputId) {
+  const input = document.getElementById(inputId);
+  const type = input.type === "password" ? "text" : "password";
+  input.type = type;
+  btn.innerHTML = type === "password"
+    ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-5.523 0-10-4.03-10-9s4.477-9 10-9 10 4.03 10 9c0 2.123-.703 4.075-1.875 5.625m-2.247 1.38A7.96 7.96 0 0112 17c-3.866 0-7-2.462-7-5s3.134-5 7-5 7 2.462 7 5a4.995 4.995 0 01-.878 2.672" /></svg>`
+    : `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 01-3 3m0 0a3 3 0 01-3-3m3 3v1m0-4a3 3 0 013-3m-3 0a3 3 0 00-3 3m12 0c0 4.97-4.03 9-9 9S3 16.97 3 12s4.03-9 9-9 9 4.03 9 9z" /></svg>`;
+}
+</script>
+
+</body>
+</html>
