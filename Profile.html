@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile - AniVerse</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="sc/FireBaseProfile.js"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-black text-white min-h-screen font-sans">
+
+  <!-- 🌟 Header -->
+  <header class="bg-gradient-to-r from-black via-gray-900 to-black shadow-lg sticky top-0 z-50 py-4 px-6">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="final.png" alt="AniVerse Logo" class="w-10 h-10 rounded-full border-2 border-red-500 object-cover"/>
+        <h1 class="text-2xl font-bold text-red-500">AniVerse</h1>
+      </div>
+      <a href="index.html" class="text-sm text-gray-300 hover:text-red-400 transition duration-200">← Back to Home</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-10">
+
+    <!-- 🔄 Loading Spinner -->
+    <div id="loading" class="flex justify-center items-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+    </div>
+
+    <!-- ✅ Loaded Content -->
+    <div id="main-content" class="hidden space-y-10">
+
+      <!-- 👤 Profile Card -->
+      <section class="bg-gray-900 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center gap-6">
+        <img id="profile-image" src="../images/background.jpg" class="w-28 h-28 rounded-full border-4 border-red-500 shadow-lg cursor-pointer hover:scale-105 transition" title="Click to change avatar" />
+        <div>
+          <h2 class="text-2xl font-bold" id="username">Username</h2>
+          <p class="text-gray-400" id="email">user@email.com</p>
+          <p class="text-sm text-gray-500 mt-2 italic">"Lover of anime. Collector of episodes. Always online."</p>
+        </div>
+      </section>
+
+      <!-- 🧸 Avatar Modal -->
+      <div id="avatar-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div class="bg-gray-900 p-6 rounded-xl w-[90%] max-w-2xl">
+          <h3 class="text-lg font-semibold text-white mb-4">🧸 Choose Your Avatar Style</h3>
+          <div id="avatar-options" class="grid grid-cols-4 sm:grid-cols-6 gap-3 overflow-y-auto max-h-[300px]">
+            <!-- Avatars injected here -->
+          </div>
+          <button id="close-avatar-modal" class="mt-4 w-full py-2 bg-red-500 hover:bg-red-600 rounded text-white">Close</button>
+        </div>
+      </div>
+
+      <!-- 📺 Watchlist -->
+      <section>
+        <h3 class="text-xl font-semibold mb-4">🎞️ My Watchlist</h3>
+        <div id="watchlist-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+          <!-- Cards injected here -->
+        </div>
+      </section>
+
+      <!-- ⚙️ Settings -->
+      <section class="bg-gray-900 rounded-xl p-6 space-y-6 shadow-inner">
+        <h3 class="text-xl font-semibold">⚙️ Account Settings</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input type="text" placeholder="Username" class="bg-gray-800 p-3 rounded-lg w-full text-white border border-gray-700" />
+          <input type="email" placeholder="Email" class="bg-gray-800 p-3 rounded-lg w-full text-white border border-gray-700" />
+          <input type="password" placeholder="New Password" class="bg-gray-800 p-3 rounded-lg w-full text-white border border-gray-700" />
+          <input type="password" placeholder="Confirm Password" class="bg-gray-800 p-3 rounded-lg w-full text-white border border-gray-700" />
+        </div>
+        <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4">
+          <button class="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-2 rounded-full transition">💾 Save Changes</button>
+          <button id="logout-btn" class="text-sm text-red-400 hover:underline transition">Logout</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <footer class="bg-transparent text-center py-6 mt-10 border-t border-gray-300 dark:border-gray-700">
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    &copy; <span id="year"></span> <span class="font-semibold text-red-500">AniVerse</span> — Developed by <span class="text-white font-medium">Ellie the Dev</span>
+  </p>
+</footer>
+</body>
+</html>
