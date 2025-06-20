@@ -2,8 +2,6 @@
 
 **AniVerse** is a modern, ad-free anime streaming platform where you can **enjoy high-quality anime**, **chat with friends**, **build your watchlist**, and **personalize your experience** — all in one place!
 
-![AniVerse Banner](final.jpg) <!-- optional banner image -->
-
 ---
 
 ## 🚀 Features
@@ -37,16 +35,6 @@
 
 ---
 
-## 📸 Screenshots
-
-> Add screenshots here when possible, like:
-
-| Home Page | Watch Page | Chat Modal |
-|----------|------------|------------|
-| ![](./screenshots/home.png) | ![](./screenshots/watch.png) | ![](./screenshots/chat.png) |
-
----
-
 ## 🔐 Authentication
 
 - 🔒 Firebase Authentication
@@ -54,22 +42,9 @@
 
 ---
 
-## 📂 Folder Structure
+## 🧪 To Run Locally
 
 ```bash
-├── Homepage/
-│   └── index.html
-├── Login/
-│   └── login.html
-├── Register/
-│   └── register.html
-├── Profile/
-│   └── profile.html
-├── Friends/
-│   └── friends.html
-├── Watch/
-│   └── watch.html
-├── sc/
-│   └── FireBase*.js (modular Firebase scripts)
-├── assets/
-│   └── avatars, images, banner
+git clone https://github.com/your-username/aniVerse.git
+cd aniVerse
+open index.html # or use Live Server in VS Code
