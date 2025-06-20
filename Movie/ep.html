@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AniVerse - Episodes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="sc/FireBaseWatchHistory.js"></script>
+  <script src="sc/ep.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-white dark:bg-black text-black dark:text-white transition-all duration-300 font-sans">
+
+<!-- Header -->
+  <header class="bg-gradient-to-r from-black via-gray-900 to-black shadow-lg sticky top-0 z-50 py-4 px-6">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="final.png" alt="AniVerse Logo" class="w-10 h-10 rounded-full border-2 border-red-500 object-cover"/>
+        <h1 class="text-2xl font-bold text-red-500">AniVerse</h1>
+      </div>
+      <a href="index.html" class="text-sm text-gray-300 hover:text-red-400 transition duration-200">← Back to Home</a>
+    </div>
+  </header>
+
+<!-- Title -->
+<section class="text-center py-10 px-4">
+  <h1 class="text-3xl sm:text-4xl font-bold mb-2">📺 Episodes</h1>
+  <p class="text-gray-500 dark:text-gray-400">Select an episode to start watching</p>
+</section>
+
+<!-- Episode Grid -->
+<section class="max-w-6xl mx-auto px-4 pb-20">
+  <div id="episode-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+    <!-- Episodes will be injected here -->
+  </div>
+</section>
+
+  <!-- Modal -->
+<div id="video-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 hidden">
+  <div class="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden">
+    <!-- Close Button -->
+    <button onclick="closeModal()" class="absolute top-2 right-2 text-white text-3xl font-bold z-50">×</button>
+
+    <!-- Player Controls -->
+    <div class="flex justify-between items-center px-4 py-2 bg-black/30 text-white text-sm">
+      <div>
+        <span class="font-bold">Select Version:</span>
+        <select id="source-selector" class="bg-black/40 border border-white/20 rounded px-2 py-1 ml-2 text-white">
+          <!-- Options will be injected here -->
+        </select>
+      </div>
+      <button id="fullscreen-btn" class="bg-white/10 px-3 py-1 rounded hover:bg-white/20">
+        Fullscreen
+      </button>
+    </div>
+
+    <!-- Video Player -->
+    <video id="video-player" controls class="w-full bg-black aspect-video" crossorigin="anonymous">
+      <track id="subtitle-track" kind="subtitles" label="English" srclang="en" default />
+    </video>
+  </div>
+</div>
+
+<footer class="bg-gray-100 dark:bg-gray-900 text-center py-6 mt-10 border-t border-gray-300 dark:border-gray-700">
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    &copy; <span id="year"></span> <span class="font-semibold text-red-500">AniVerse</span> — Developed  by <span class="text-white font-medium">Ellie the Dev</span>
+  </p>
+</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+
+<!-- Script to Generate Episodes -->
+<script>
+  /*const totalEpisodes = 24;
+  const container = document.getElementById('episode-grid');
+
+  for (let i = 1; i <= totalEpisodes; i++) {
+    const episode = document.createElement('a');
+    episode.href = `player.html?episode=${i}`;
+    episode.className = `
+      block rounded-lg border border-red-500/40
+      bg-white/5 dark:bg-black/10
+      backdrop-blur-sm text-center
+      p-3 sm:p-4 transition-all duration-200
+      hover:scale-105 hover:border-red-500 hover:bg-white/10
+    `;
+
+    episode.innerHTML = `
+      <div class="text-sm sm:text-base md:text-lg font-semibold text-red-500">Episode ${i}</div>
+    `;
+
+    container.appendChild(episode);
+  }*/
+</script>
+
+</body>
+  </html>
+  
