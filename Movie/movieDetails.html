@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Details - AniVerse</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="sc/md.js" defer></script>
+  <script type="module" src="sc/FireBaseMd.js"></script>
+  <script type="module" src="sc/FireBaseComments.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    #toast {
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+    @keyframes fadein {
+      from { opacity: 0; bottom: 0; }
+      to { opacity: 1; bottom: 2rem; }
+    }
+    @keyframes fadeout {
+      from { opacity: 1; bottom: 2rem; }
+      to { opacity: 0; bottom: 0; }
+    }
+  </style>
+</head>
+<body class="bg-white dark:bg-black text-black dark:text-white relative">
+
+  <div id="loader" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex justify-center items-center pointer-events-auto">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+  </div>
+  <!-- Loading Overlay (Blocks UI) -->
+  <div id="loader-overlay" class="hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex justify-center items-center pointer-events-auto">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 w-[90%] md:w-[400px] bg-white/10 text-white text-sm px-6 py-3 rounded-lg shadow-lg border border-white/20 backdrop-blur-md z-50 text-center">
+    ✅ Added to watchlist successfully!
+  </div>
+
+  <!-- BACK BUTTON -->
+  <div class="max-w-6xl mx-auto px-4 pt-6">
+    <a href="../index.html" class="flex items-center text-sm text-red-500 hover:text-red-600 transition-all">
+      <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to Home
+    </a>
+  </div>
+<!-- MOVIE DETAILS -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Poster -->
+      <div class="w-full md:w-1/3 flex justify-center">
+        <img id="movie-poster" src="background.jpg" alt="Movie Poster" class="rounded-lg shadow-md w-[70%]">
+      </div>
+
+      <!-- Info -->
+      <div class="w-full md:w-2/3 space-y-4">
+        <h1 id="movie-title" class="text-3xl font-bold"></h1>
+        <div class="flex items-center gap-4 text-sm text-gray-400 dark:text-gray-300" id="movie-meta">
+          <span>2023</span>
+          <span>•</span>
+          <span>Duration</span>
+        </div>
+        <p id="movie-description" class="text-gray-700 dark:text-gray-300">
+          This is a brief synopsis of the movie. It gives an overview of the plot and hooks the viewer to watch the film.
+        </p>
+
+        <!-- Tags -->
+        <div id="genre-tags" class="flex flex-wrap gap-2">
+          <!-- Genre tags will be injected here -->
+        </div>
+
+       <!-- Buttons -->
+<div class="mt-6 flex flex-col items-center gap-0 w-full">
+  <a id="watch-btn" href="#"
+    class="w-full max-w-xs bg-red-600 hover:bg-red-700 text-white font-medium px-1 py-3 rounded-t-lg shadow text-center">
+    Watch Now
+  </a>
+  <button id="watchlist-btn"
+    class="w-full max-w-xs bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-black dark:text-white px-1 py-3 rounded-b-lg shadow border-t border-gray-200 dark:border-gray-600">
+    Add to Watchlist
+  </button>
+</div>
+
+
+
+
+
+
+        
+         <!-- COMMENT SECTION -->
+  <div>
+    <h2 class="text-lg font-semibold mb-2">💬 Leave a Comment</h2>
+    <textarea id="comment-input" rows="2" placeholder="Write your thoughts..." class="w-full p-3 bg-white/5 dark:bg-gray-800 border border-gray-600 rounded-lg text-sm text-white resize-none focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+    <div class="flex justify-end mt-2">
+      <button id="submit-comment" class="bg-red-600 hover:bg-red-700 text-white text-sm px-6 py-2 rounded-lg">Submit</button>
+    </div>
+
+    <!-- Comment List -->
+    <div id="comment-list" class="mt-4 space-y-3">
+      <!-- Dummy comment -->
+      <div class="bg-white/5 dark:bg-gray-800 px-4 py-3 rounded-lg text-sm text-white">
+        🎥 *This movie had me hooked till the end! Highly recommended.* – <span class="text-gray-400 text-xs">Anonymous</span>
+      </div>
+    </div>
+  </div>
+        <!-- RECOMMENDATIONS -->
+<section class="max-w-6xl mx-auto px-4 pb-16">
+  <h2 class="text-2xl font-bold mb-6 border-l-4 border-red-500 pl-4">🎬 Recommended for You</h2>
+  <div id="recommendation-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+ <!-- Example card (remove once dynamically generated) -->
+    <div class="bg-white/5 dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:scale-[1.02] hover:shadow-lg transition-all duration-300">
+      <img src="https://placehold.co/300x400" alt="Movie Poster" class="w-full h-48 object-cover">
+      <div class="p-3">
+        <h3 class="text-sm font-semibold text-white truncate">Movie Title</h3>
+        <p class="text-xs text-gray-400">Genre • Year</p>
+      </div>
+    </div>
+    <!-- Repeat this structure dynamically with JS -->
+  </div>
+
+</section>
+</div>
+
+        
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+
+ 
+
+
+<footer class="bg-gray-100 dark:bg-gray-900 text-center py-6 mt-10 border-t border-gray-300 dark:border-gray-700">
+  <p class="text-sm text-gray-600 dark:text-gray-400">
+    &copy; <span id="year"></span> <span class="font-semibold text-red-500">AniVerse</span> — Developed  by <span class="text-white font-medium">Ellie the Dev</span>
+  </p>
+</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+  <script>
+    const loader = document.getElementById("loader-overlay");
+    const toast = document.getElementById("toast");
+    const watchlistBtn = document.getElementById("watchlist-btn");
+    const body = document.body;
+
+    watchlistBtn.addEventListener("click", () => {
+      // Show loading and disable user interaction
+      loader.classList.remove("hidden");
+      body.classList.add("pointer-events-none");
+
+      // Simulated async Firebase operation
+      setTimeout(() => {
+        // Hide loading
+        loader.classList.add("hidden");
+        body.classList.remove("pointer-events-none");
+
+        // Show toast
+        toast.classList.remove("hidden");
+
+        // Auto-hide toast
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 3000);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
