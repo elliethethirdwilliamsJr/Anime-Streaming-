@@ -134,5 +134,4 @@ async function handleSearch() {
 
 function changePage(page) {
   window.location.href = `search.html?q=${encodeURIComponent(currentQuery)}&page=${page}`;
-    }
-      
+}

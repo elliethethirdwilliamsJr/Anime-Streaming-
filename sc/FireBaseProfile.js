@@ -78,16 +78,17 @@ onAuthStateChanged(auth, async (user) => {
       }
 
       watchlistSnap.forEach(doc => {
-        const data = doc.data();
-        const card = document.createElement('a');
-        card.href = "#";
-        card.className = "group relative block rounded-lg overflow-hidden shadow-md hover:scale-105 transition";
-        card.innerHTML = `
-          <img src="${data.image}" alt="${data.title}" class="w-full h-auto" />
-          <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1 text-xs text-center text-white truncate">${data.title}</div>
-        `;
-        watchlistContainer.appendChild(card);
-      });
+  const data = doc.data();
+  const card = document.createElement('a');
+  card.href = `Movie/movieDetails.html?id=${data.id}`; // 🔗 redirect with ID
+  card.className = "group relative block rounded-lg overflow-hidden shadow-md hover:scale-105 transition";
+  card.innerHTML = `
+    <img src="${data.image}" alt="${data.title}" class="w-full h-auto" />
+    <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1 text-xs text-center text-white truncate">${data.title}</div>
+  `;
+  watchlistContainer.appendChild(card);
+});
+
 
       loading.style.display = 'none';
       mainContent.style.display = 'block';
