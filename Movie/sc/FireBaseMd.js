@@ -47,13 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const movieTitle = document.querySelector("h1")?.textContent || "Untitled";
         const movieImage = document.querySelector("img")?.src || "";
 
-        const movieData = {
-          title: movieTitle,
-          image: movieImage,
-          addedAt: new Date().toISOString()
-        };
+        const urlParams = new URLSearchParams(window.location.search);
+const animeId = urlParams.get("id"); // get ID from URL
 
-        const movieId = movieTitle.toLowerCase().replace(/\s+/g, '-');
+const movieData = {
+  id: animeId, // ✅ Include the real ID
+  title: movieTitle,
+  image: movieImage,
+  addedAt: new Date().toISOString()
+};
+
+const movieId = animeId || movieTitle.toLowerCase().replace(/\s+/g, '-'); // fallback just in case
 
         try {
           await setDoc(doc(db, "users", user.uid, "watchlist", movieId), movieData);

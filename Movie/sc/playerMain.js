@@ -1,3 +1,5 @@
+import { getWatchProgress, trackWatchProgress } from "./Tracker.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const video = document.getElementById("player");
   const loader = document.getElementById("preloder");
@@ -6,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!episodeId) {
     alert("❌ Missing episode ID in URL.");
-    loader.style.display = "none"; // Hide loader since we won't load video
+    loader.style.display = "none";
     return;
   }
 
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetch(apiURL)
     .then(res => res.json())
-    .then(data => {
+    .then(async data => {
       const originalLink = data?.results?.streamingLink?.link?.file;
       const link = `https://m3u8-proxy-cors-azure-two.vercel.app/cors?url=${encodeURIComponent(originalLink)}`;
       const tracks = data?.results?.streamingLink?.tracks || [];
@@ -25,13 +27,42 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Clear existing sources and tracks
       video.innerHTML = "";
 
-      // Function to hide loader and play video after setup
-      const onVideoReady = () => {
+      const onVideoReady = async () => {
+        const resumeModal = document.getElementById("resume-modal");
+        const resumeTimeEl = document.getElementById("resume-time");
+        const startOverBtn = document.getElementById("start-over-btn");
+        const continueBtn = document.getElementById("continue-btn");
+
+        const savedTime = await getWatchProgress(episodeId);
+
         loader.style.display = "none";
-        video.play().catch(() => {});
+
+        if (savedTime >= 60) {
+          const minutes = Math.floor(savedTime / 60);
+          const seconds = savedTime % 60;
+          resumeTimeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+          resumeModal.classList.remove("hidden");
+
+          startOverBtn.onclick = () => {
+            resumeModal.classList.add("hidden");
+            video.currentTime = 0;
+            video.play();
+          };
+
+          continueBtn.onclick = () => {
+            resumeModal.classList.add("hidden");
+            video.currentTime = savedTime;
+            video.play();
+          };
+        } else {
+          video.play();
+        }
+
+        // Start tracking progress
+        trackWatchProgress(video, episodeId);
       };
 
       if (Hls.isSupported()) {
@@ -52,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Add subtitle tracks if available
+      // Add subtitles
       tracks.forEach(track => {
         const trackEl = document.createElement("track");
         trackEl.kind = track.kind || "subtitles";
@@ -63,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         video.appendChild(trackEl);
       });
 
-      // Setup Plyr after video source set
+      // Setup Plyr
       setTimeout(() => {
         new Plyr(video, {
           captions: { active: true, update: true, language: "en" },
@@ -73,7 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error("Stream fetch error:", err);
-      alert("Failed to load episode. Please try again later.");
+     
+ alert("Failed to load episode. Please try again later.");
       loader.style.display = "none";
     });
 });
