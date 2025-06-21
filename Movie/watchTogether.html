@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Watch Together - AniVerse</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="FireBaseWatch.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+  <!-- 🔄 Centered Loading Spinner -->
+  <div id="loading" class="fixed inset-0 flex items-center justify-center bg-black/10 backdrop-blur-sm z-50">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+  </div>
+
+  <div class="max-w-3xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-3 text-center text-red-400">Invite Friends to Watch (Beta)</h1>
+
+    <!-- 🧪 Beta Notice -->
+    <div class="bg-yellow-100/10 dark:bg-yellow-500/10 border border-yellow-500/30 text-yellow-300 text-sm rounded-md px-4 py-3 mb-6 text-center backdrop-blur-sm animate-fade-in">
+      ⚠️ This is a <strong>beta</strong> feature. Bugs may occur — please be patient!
+    </div>
+
+    <div id="friends-list" class="space-y-4"></div>
+  </div>
+</body>
+
+</html>

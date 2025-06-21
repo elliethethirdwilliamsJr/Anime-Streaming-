@@ -1,132 +1,154 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Anime Template">
-    <meta name="keywords" content="Anime, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Aniverse | Watch</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Anime Template">
+  <meta name="keywords" content="Anime, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aniverse | Watch</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-<script type="module" src="sc/FireBaseComment.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script src="https://cdn.tailwindcss.com"></script>
-   <script>
-    tailwind.config = { darkMode: 'class' }
-  </script>
-
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="css/plyr.css" type="text/css">
+  <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+  <script type="module" src="sc/FireBaseComment.js"></script>
+  <script type="module" src="sc/Tracker.js"></script>
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+ 
+  <!-- Page Preloader -->
+  <div id="preloder"><div class="loader"></div></div>
 
-    <!-- 🌟 Header -->
+  <!-- Header -->
   <header class="bg-gradient-to-r from-black via-gray-900 to-black shadow-lg sticky top-0 z-50 py-4 px-6">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <img src="final.png" alt="AniVerse Logo" class="w-10 h-10 rounded-full border-2 border-red-500 object-cover"/>
+        <img src="final.png" alt="AniVerse Logo" class="w-10 h-10 rounded-full border-2 border-red-500 object-cover" />
         <h1 class="text-2xl font-bold text-red-500">AniVerse</h1>
       </div>
       <a href="../index.html" class="text-sm text-gray-300 hover:text-red-400 transition duration-200">← Back to Home</a>
     </div>
   </header>
 
+  <!-- Anime Section -->
+  <section class="anime-details spad">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="anime__video__player">
+            <video id="player" playsinline controls data-poster="./videos/anime-watch.jpg">
+              <source src="videos/1.mp4" type="video/mp4" />
+              <track kind="captions" label="English captions" src="#" srclang="en" default />
+            </video>
 
-    <!-- Anime Section Begin -->
-    <section class="anime-details spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="anime__video__player">
-                        <video id="player" playsinline controls data-poster="./videos/anime-watch.jpg">
-                            <source src="videos/1.mp4" type="video/mp4" />
-                            <!-- Captions are optional -->
-                            <track kind="captions" label="English captions" src="#" srclang="en" default />
-                        </video>
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="anime__details__review">
-                        <div class="section-title">
-                            <h5>Reviews</h5>
-                        </div>                      
-                        <div class="anime__details__review">
-  <div class="section-title">
-    
-  </div>
-  <div id="reviews-list">
-    <!-- Existing static comment -->
-    <div class="anime__review__item">
-      <div class="anime__review__item__pic">
+        
+
+
+
+          </div>
         </div>
-      
+      </div>
+
+      <!-- Comments & Reviews -->
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="anime__details__review">
+            <div class="section-title">
+              <h5>Reviews</h5>
+            </div>
+
+            <div class="anime__details__review">
+              <div class="section-title"></div>
+              <div id="reviews-list">
+                <!-- Example Static Comment -->
+                <div class="anime__review__item">
+                  <div class="anime__review__item__pic"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comment Form -->
+          <div class="anime__details__form">
+            <div class="section-title">
+              <h5>Your Comment</h5>
+            </div>
+            <form id="comment-form">
+              <textarea id="comment-input" placeholder="Your Comment" required></textarea>
+              <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
+            </form>
+          </div>
+
+          <!-- Comments Display -->
+          <div id="comments-container" class="mt-4 space-y-4"></div>
+        </div>
+      </div>
     </div>
-    <!-- New comments will be inserted here dynamically -->
+  </section>
+ 
+<div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4 hidden">
+  <div class="bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-lg w-full max-w-sm px-6 py-4 shadow-xl text-white animate-fade-in">
+
+    <!-- Header -->
+    <div class="text-center">
+      <h2 class="text-base font-semibold text-red-400 mb-1">Resume Watching?</h2>
+      <p class="text-xs text-gray-300">
+        You stopped at <span id="resume-time" class="font-medium text-white">0:00</span>
+      </p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="mt-4 flex justify-center space-x-3">
+      <button id="start-over-btn"
+        class="text-sm px-4 py-1.5 bg-transparent border border-gray-600 text-gray-300 hover:border-red-500 hover:text-red-400 rounded transition duration-150">
+        Start
+      </button>
+      <button id="continue-btn"
+        class="text-sm px-4 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded transition duration-150">
+        Continue
+      </button>
+    </div>
   </div>
 </div>
 
-                    </div>
-                    <!-- Comments Form -->
-<div class="anime__details__form">
-  <div class="section-title">
-    <h5>Your Comment</h5>
-  </div>
-  <form id="comment-form">
-    <textarea id="comment-input" placeholder="Your Comment" required></textarea>
-    <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
-  </form>
-</div>
+  <!-- Footer -->
+  <footer class="bg-transparent text-center py-6 mt-10 border-t border-gray-300 dark:border-gray-700">
+    <p class="text-sm text-gray-600 dark:text-gray-400">
+      &copy; <span id="year"></span> <span class="font-semibold text-red-500">AniVerse</span> — Developed by
+      <span class="text-white font-medium">Ellie the Dev</span>
+    </p>
+  </footer>
 
-<!-- Comments container where comments will show -->
-<div id="comments-container" class="mt-4 space-y-4"></div>
+  <!-- Set Year Script -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
-                   
-                </div>
-            </div>
-        </div>
-    </section>
-<footer class="bg-transparent text-center py-6 mt-10 border-t border-gray-300 dark:border-gray-700">
-  <p class="text-sm text-gray-600 dark:text-gray-400">
-    &copy; <span id="year"></span> <span class="font-semibold text-red-500">AniVerse</span> — Developed by <span class="text-white font-medium">Ellie the Dev</span>
-  </p>
-</footer>
+ 
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-    <!-- Anime Section End -->
-
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="sc/playerMain.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
+  <!-- Plugins -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <script src="js/mixitup.min.js"></script>
+  <script src="js/jquery.slicknav.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/main.js"></script>
+  <script type="module" src="sc/playerMain.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </body>
 </html>

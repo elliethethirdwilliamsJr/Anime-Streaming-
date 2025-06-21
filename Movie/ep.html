@@ -6,7 +6,8 @@
   <title>AniVerse - Episodes</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="sc/FireBaseWatchHistory.js"></script>
-  <script src="sc/ep.js"></script>
+  <script type="module" src="sc/ep.js"></script>
+  <script type="module" src="sc/FireBaseEpisode.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
   <script>
@@ -14,7 +15,9 @@
   </script>
 </head>
 <body class="bg-white dark:bg-black text-black dark:text-white transition-all duration-300 font-sans">
-
+<div id="loading" class="fixed inset-0 flex items-center justify-center bg-black z-50">
+  <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-red-500 border-opacity-50"></div>
+</div>
 <!-- Header -->
   <header class="bg-gradient-to-r from-black via-gray-900 to-black shadow-lg sticky top-0 z-50 py-4 px-6">
     <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -73,31 +76,5 @@
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
-
-
-<!-- Script to Generate Episodes -->
-<script>
-  /*const totalEpisodes = 24;
-  const container = document.getElementById('episode-grid');
-
-  for (let i = 1; i <= totalEpisodes; i++) {
-    const episode = document.createElement('a');
-    episode.href = `player.html?episode=${i}`;
-    episode.className = `
-      block rounded-lg border border-red-500/40
-      bg-white/5 dark:bg-black/10
-      backdrop-blur-sm text-center
-      p-3 sm:p-4 transition-all duration-200
-      hover:scale-105 hover:border-red-500 hover:bg-white/10
-    `;
-
-    episode.innerHTML = `
-      <div class="text-sm sm:text-base md:text-lg font-semibold text-red-500">Episode ${i}</div>
-    `;
-
-    container.appendChild(episode);
-  }*/
-</script>
-
 </body>
 </html>
