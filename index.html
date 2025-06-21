@@ -20,9 +20,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script type="module" src="sc/FireBaseAuth.js"></script>
   <script src="sc/app.js"></script>
- <meta name="google-adsense-account" content="ca-pub-8129742135201572">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8129742135201572"
-     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/line-clamp"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    plugins: [window.tailwindcssLineClamp],
+  }
+</script>
+
   <script>
     tailwind.config = { darkMode: 'class' }
   </script>
@@ -40,7 +45,29 @@
     #loader.show { opacity: 1; pointer-events: auto; }
     #loader.hide { opacity: 0; pointer-events: none; }
   </style>
+  <style>
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(10px); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  .animate-fade-out {
+    animation: fadeOut 0.3s ease-in forwards;
+  }
+</style>
+
 </head>
+
+
 <body class="bg-white dark:bg-black text-black dark:text-white font-sans transition-colors duration-300">
 
   <!-- Loader -->
@@ -55,7 +82,7 @@
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
 
     <!-- Left: Logo -->
-    <div class="text-xl font-bold text-red-600 shrink-0">AniVerse</div>
+    <div class="text-xl font-bold text-red-600 shrink-0"><span style="color: red;">Ani</span>Verse</div>
 
     <!-- Center: Search -->
     <div class="w-full max-w-md block">
@@ -83,8 +110,9 @@
           <img id="nav-avatar" src="../images/user.jpg" class="w-8 h-8 rounded-full object-cover border-2 border-white" alt="User" />
         </button>
         <div class="absolute right-0 mt-2 bg-white dark:bg-gray-900 rounded shadow-lg p-2 text-sm hidden group-hover:block z-50">
-          <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Profile</a>
+          <a href="Profile.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Profile</a>
           <a href="Socials/friends.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Friends</a>
+          <a href="Movie/watchTogether.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Watch Room</a>
            <a href="#" id="auth-btn" class="block px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Logout</a>
         </div>
       </div>
@@ -98,7 +126,7 @@
   <section class="relative bg-[url('final.png')] bg-cover bg-center h-[65vh] flex items-center justify-center">
     <div class="absolute inset-0 bg-black/70 z-0"></div>
     <div class="relative z-10 text-center px-4 max-w-2xl">
-      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">Welcome to <span class="text-red-500">AniVerse</span></h1>
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">Welcome to <span class="text-red-500">Ani</span>Verse</h1>
       <p class="text-sm sm:text-base mb-6 text-gray-300">Your one-stop hub for anime and movies!</p>
       <a href="#" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded text-lg font-semibold shadow">Start Watching</a>
     </div>
@@ -107,25 +135,23 @@
   <!-- Trending Movies -->
 <section class="px-4 py-10 max-w-7xl mx-auto">
   <h2 class="text-2xl font-bold mb-4 border-l-4 border-red-500 pl-3">Anime Spotlight</h2>
-  <div id="trending-movies" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-    <!-- Dynamic content goes here -->
+  <div id="trending-movies" class="grid grid-cols-2 gap-4">
+<!-- Dynamic content goes here -->
   </div>
 </section>
 
 <!-- Latest Episodes -->
 <section class="px-4 py-10 max-w-7xl mx-auto">
   <h2 class="text-2xl font-bold mb-4 border-l-4 border-blue-500 pl-3">Trending Now</h2>
-  <div id="latest-episodes" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-    <!-- Dynamic content goes here -->
+  <div id="latest-episodes" class="grid grid-cols-2 gap-4">
+  <!-- Dynamic content goes here -->
   </div>
 </section>
 
 
-  <!-- Categories Section -->
-  <!-- Categories Section -->
+ <!-- Categories Section -->
 <section id="categories-section" class="px-4 pb-20 max-w-7xl mx-auto">
   <div class="flex items-center gap-4 mb-6">
-    <label for="categorySelect" class="text-lg font-semibold">:</label>
     <select id="categorySelect" class="bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded px-4 py-2">
       <option value="top-airing">Top Airing</option>
       <option value="most-popular">Most Popular</option>
@@ -143,13 +169,11 @@
   </div>
 
   <!-- Anime Cards Grid -->
-  <div id="category-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-    <!-- JS will populate here -->
+  <div id="category-grid" class="grid grid-cols-2 gap-4">
+ <!-- JS will populate here -->
   </div>
 </section>
-
-
-  
+ 
   
 <footer class="bg-gray-100 dark:bg-gray-900 text-center py-6 mt-10 border-t border-gray-300 dark:border-gray-700">
   <p class="text-sm text-gray-600 dark:text-gray-400">
