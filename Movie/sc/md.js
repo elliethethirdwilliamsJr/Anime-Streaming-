@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 });
 
+// 🧼 Reset Ad Link Trigger on close
+window.addEventListener("beforeunload", () => {
+  localStorage.removeItem("ad_redirected");
+});
+
 // 🔁 Fetch Anime by ID
 async function fetchAnimeById(animeId) {
   const loader = document.getElementById('loader');
@@ -20,7 +25,7 @@ async function fetchAnimeById(animeId) {
 
   try {
     const res = await fetch(`https://animeapiv2.vercel.app/api/info?id=${animeId}`, {
-      cache: 'no-store' // 🔒 Bonus: prevent caching
+      cache: 'no-store'
     });
     const data = await res.json();
 
@@ -101,6 +106,18 @@ function populateAnimeDetails(animeData) {
   if (watchBtn) {
     watchBtn.href = `ep.html?id=${info.id}`;
     watchBtn.textContent = '🎬 Watch Episodes';
+
+    watchBtn.addEventListener('click', () => {
+      triggerAdRedirect();
+    });
+  }
+
+  // ✅ Watchlist Button
+  const watchlistBtn = document.querySelector('.add-to-watchlist');
+  if (watchlistBtn) {
+    watchlistBtn.addEventListener('click', () => {
+      triggerAdRedirect();
+    });
   }
 
   // ✅ Recommended Animes
@@ -113,7 +130,6 @@ function populateAnimeDetails(animeData) {
       recs.forEach(anime => {
         const recItem = document.createElement('a');
         recItem.href = `movieDetails.html?id=${anime.id}`;
-        recItem.target = "_self"; // 🔁 force full reload on fallback (optional)
         recItem.className = 'block group relative bg-white/5 dark:bg-gray-800 rounded-xl overflow-hidden shadow hover:scale-[1.02] hover:shadow-lg transition-all duration-300';
 
         const img = document.createElement('img');
@@ -138,7 +154,6 @@ function populateAnimeDetails(animeData) {
         recItem.appendChild(infoDiv);
         recList.appendChild(recItem);
 
-        // 🧠 Optional: Intercept click and reload anime SPA-style
         recItem.addEventListener('click', (e) => {
           e.preventDefault();
           const newId = anime.id;
@@ -157,3 +172,14 @@ function populateAnimeDetails(animeData) {
     }
   }
 }
+
+// 📣 Ad Redirect Logic
+function triggerAdRedirect() {
+  const adUrl = "https://viiqkzqv.com/dc/?blockID=378730&tb=https%3A%2F%2Faniverse-animestreaming.netlify.app%2F";
+
+  if (!localStorage.getItem("ad_redirected")) {
+    window.open(adUrl, "_blank");
+    localStorage.setItem("ad_redirected", "yes");
+  }
+                      }
+    
